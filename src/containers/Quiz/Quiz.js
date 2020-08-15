@@ -6,6 +6,7 @@ class Quiz extends Component {
 
     state = {
         activeQuestion: 0,
+        answeredState: null,
         quiz: [
             {
                 rightAnswerId: 2,
@@ -19,7 +20,7 @@ class Quiz extends Component {
                 ]
             },
             {
-                rightAnswerId: 3,
+                rightAnswerId: 4,
                 id: 2,
                 question: 'В каком году основали Санкт-Петербург?',
                 answers: [
@@ -33,10 +34,46 @@ class Quiz extends Component {
     }
 
     onAnswerClickHandler = answerId => {
-        console.log(answerId);
+        if (this.state.answeredState) {
+            const key = Object.keys(this.state.answeredState)[0];
+            if (this.state.answeredState[key] === 'success') {
+                return;
+            }
+        }
 
-        this.setState((state, props) => { return { activeQuestion: this.state.activeQuestion + 1 }});
+        const question = this.state.quiz[this.state.activeQuestion];
+
+        if (question.rightAnswerId === answerId) {
+            this.setState({
+                answeredState: {[answerId]: 'success'}
+            });
+            
+
+            const timeout = window.setTimeout(() => {
+                if (this.isQuizFinished()) {
+                    console.log('Finished');
+                } else {
+                    this.setState(() => { 
+                        return { 
+                            activeQuestion: this.state.activeQuestion + 1,
+                            answeredState: null 
+                        }
+                    });
+                }
+
+                window.clearTimeout(timeout);
+            }, 1000)
+
+        } else {
+            this.setState({
+                answeredState: {[answerId]: 'error'}
+            })
+        }
         
+    }
+
+    isQuizFinished() {
+        return this.state.activeQuestion + 1 === this.state.quiz.length;
     }
 
     render() { 
@@ -50,6 +87,7 @@ class Quiz extends Component {
                         answers={this.state.quiz[this.state.activeQuestion].answers}
                         question={this.state.quiz[this.state.activeQuestion].question}
                         onAnswerClick={this.onAnswerClickHandler}
+                        state={this.state.answeredState}
                     />
                 </div>
             </div>
