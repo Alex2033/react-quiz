@@ -6,7 +6,8 @@ import FinishedQuiz from '../../components/ActiveQuiz/FinishedQuiz/FinishedQuiz'
 class Quiz extends Component {
 
     state = {
-        isFinished: true,
+        results: {},
+        isFinished: false,
         activeQuestion: 0,
         answeredState: null,
         quiz: [
@@ -44,10 +45,16 @@ class Quiz extends Component {
         }
 
         const question = this.state.quiz[this.state.activeQuestion];
+        const results = this.state.results;
 
         if (question.rightAnswerId === answerId) {
+            if (!results[question.id]) {
+                results[question.id] = 'success';
+            }
+
             this.setState({
-                answeredState: {[answerId]: 'success'}
+                answeredState: {[answerId]: 'success'},
+                results
             });
             
 
@@ -67,8 +74,10 @@ class Quiz extends Component {
             }, 1000)
 
         } else {
+            results[question.id] = 'error';
             this.setState({
-                answeredState: {[answerId]: 'error'}
+                answeredState: {[answerId]: 'error'},
+                results
             })
         }
         
@@ -76,6 +85,15 @@ class Quiz extends Component {
 
     isQuizFinished() {
         return this.state.activeQuestion + 1 === this.state.quiz.length;
+    }
+
+    retryHandler = () => {
+        this.setState({ 
+            activeQuestion:  0,
+            isFinished: false,
+            answeredState: null,
+            results: {}
+        });
     }
 
     render() { 
@@ -87,7 +105,9 @@ class Quiz extends Component {
                     {
                         this.state.isFinished 
                          ? <FinishedQuiz 
-
+                            results={this.state.results}
+                            quiz={this.state.quiz}
+                            onRetry={this.retryHandler}
                            />
                          : <ActiveQuiz 
                             quizLength={this.state.quiz.length}
