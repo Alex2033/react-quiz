@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+import classes from "./QuizCreator.module.scss";
 
 class QuizCreator extends Component {
   render() {
-    return <h1>Quiz Creator</h1>;
+    return (
+      <div className={classes.QuizCreator}>
+        <h1>Quiz Creator</h1>
+      </div>
+    );
   }
 }
 

@@ -13,7 +13,7 @@ const FinishedQuiz = (props) => {
   }, 0);
 
   return (
-    <div className={classes.finishedQuiz}>
+    <div className={classes.FinishedQuiz}>
       <ul>
         {props.quiz.map((quizItem, index) => {
           const cls = [

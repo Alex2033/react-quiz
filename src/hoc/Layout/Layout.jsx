@@ -20,7 +20,7 @@ class Layout extends Component {
 
   render() {
     return (
-      <div className={classes.layout}>
+      <div className={classes.Layout}>
         <Drawer isOpen={this.state.menu} onClose={this.menuCloseHandler} />
 
         <MenuToggle

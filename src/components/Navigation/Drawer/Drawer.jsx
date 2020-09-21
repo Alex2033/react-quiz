@@ -15,7 +15,7 @@ const links = [
     exact: false,
   },
   {
-    to: "/",
+    to: "/quiz-creator",
     label: "Создать тест",
     exact: false,
   },
@@ -44,7 +44,7 @@ class Drawer extends Component {
   };
 
   render() {
-    const cls = [classes.drawer];
+    const cls = [classes.Drawer];
 
     if (!this.props.isOpen) cls.push(classes.close);
 

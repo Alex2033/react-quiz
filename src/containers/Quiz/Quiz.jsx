@@ -94,8 +94,8 @@ class Quiz extends Component {
 
   render() {
     return (
-      <div className={classes.quiz}>
-        <div className={classes.quizWrapper}>
+      <div className={classes.Quiz}>
+        <div className={classes.QuizWrapper}>
           <h1>Ответьте на все вопросы</h1>
 
           {this.state.isFinished ? (

@@ -15,7 +15,7 @@ class QuizList extends Component {
 
   render() {
     return (
-      <div className={classes.quizList}>
+      <div className={classes.QuizList}>
         <div>
           <h1>Список тестов</h1>
 

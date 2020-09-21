@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./MenuToggle.module.scss";
 
 const MenuToggle = (props) => {
-  const cls = [classes.menuToggle, "fa"];
+  const cls = [classes.MenuToggle, "fa"];
 
   if (props.isOpen) {
     cls.push("fa-times");

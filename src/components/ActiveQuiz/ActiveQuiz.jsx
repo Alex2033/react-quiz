@@ -4,8 +4,8 @@ import AnswersList from "./AnswersList/AnswersList";
 
 const ActiveQuiz = (props) => {
   return (
-    <div className={classes.activeQuiz}>
-      <p className={classes.question}>
+    <div className={classes.ActiveQuiz}>
+      <p className={classes.Question}>
         <span>
           <strong>{props.answerNumber}. </strong>
           {props.question}
