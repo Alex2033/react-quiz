@@ -47,9 +47,9 @@ class Auth extends Component {
     const formControls = { ...this.state.formControls };
     const control = { ...formControls[controlName] };
 
-    constrol.value = even.target.value;
+    control.value = event.target.value;
     control.touched = true;
-    control.valid = this.validate(control.value.control.validation);
+    control.valid = this.validate(control.validation);
   };
 
   renderInputs() {
