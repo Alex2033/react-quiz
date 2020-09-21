@@ -9,6 +9,7 @@ import {
   validateForm,
 } from "../../form/formFramework";
 import Auxillary from "../../hoc/Auxillary/Auxillary";
+import axios from "axios";
 
 function createOptionControl(number) {
   return createControl(
@@ -97,10 +98,23 @@ class QuizCreator extends Component {
     });
   };
 
-  createQuizHandler = (event) => {
+  createQuizHandler = async (event) => {
     event.preventDefault();
 
-    // TODO: Server
+    try {
+      await axios.post(
+        "https://react-quiz-411e0.firebaseio.com/quizes.json",
+        this.state.quiz
+      );
+      this.setState({
+        quiz: [],
+        formControls: createFormControls(),
+        rightAnswerId: 1,
+        isFormValid: false,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   changeHandler = (value, controlName) => {
