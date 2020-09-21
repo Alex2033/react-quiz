@@ -8,7 +8,7 @@ function isInvalid({ valid, touched, shouldValidate }) {
 const Input = (props) => {
   const inputType = props.type || "text";
   const cls = [classes.input];
-  const htmlFor = `${inputType}-${Math.random()};`;
+  const htmlFor = `${inputType}-${Math.random()}`;
 
   if (isInvalid(props)) {
     cls.push(classes.invalid);
