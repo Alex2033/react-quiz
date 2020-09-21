@@ -3,7 +3,11 @@ import classes from "./QuizCreator.module.scss";
 import Button from "../../components/UI/Button/Button";
 import Select from "../../components/UI/Select/Select";
 import Input from "../../components/UI/Input/Input";
-import { createControl } from "../../form/formFramework";
+import {
+  createControl,
+  validate,
+  validateForm,
+} from "../../form/formFramework";
 import Auxillary from "../../hoc/Auxillary/Auxillary";
 
 function createOptionControl(number) {
@@ -38,17 +42,36 @@ class QuizCreator extends Component {
     quiz: [],
     formControls: createFormControls(),
     rightAnswerId: 1,
+    isFormValid: false,
   };
 
   submitHandler = (event) => {
     event.preventDefault();
   };
 
-  onAddQuestionHandler = () => {};
+  onAddQuestionHandler = (event) => {
+    event.preventDefault();
+  };
 
-  createQuizHandler = () => {};
+  createQuizHandler = (event) => {
+    event.preventDefault();
+  };
 
-  changeHandler = (value, controlName) => {};
+  changeHandler = (value, controlName) => {
+    const formControls = { ...this.state.formControls };
+    const control = { ...formControls[controlName] };
+
+    control.touched = true;
+    control.value = value;
+    control.valid = validate(control.value, control.validation);
+
+    formControls[controlName] = control;
+
+    this.setState({
+      formControls,
+      isFormValid: validateForm(formControls),
+    });
+  };
 
   renderControls() {
     return Object.keys(this.state.formControls).map((controlName, index) => {
@@ -102,10 +125,18 @@ class QuizCreator extends Component {
 
             {select}
 
-            <Button type="primary" onClick={this.onAddQuestionHandler}>
+            <Button
+              type="primary"
+              disabled={!this.state.isFormValid}
+              onClick={this.onAddQuestionHandler}
+            >
               Добавить вопрос
             </Button>
-            <Button type="success" onClick={this.createQuizHandler}>
+            <Button
+              type="success"
+              disabled={this.state.quiz.length === 0}
+              onClick={this.createQuizHandler}
+            >
               Создать тест
             </Button>
           </form>
